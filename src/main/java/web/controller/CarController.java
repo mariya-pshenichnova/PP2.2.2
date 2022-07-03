@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import web.dao.CarDAO;
 
 import java.util.ArrayList;
@@ -23,15 +24,13 @@ public class CarController {
     }
 
     @GetMapping("/cars")
-    public String printCars(Model model) {
-        model.addAttribute("cars", carDAO.printCars());
-        return "/cars";
-    }
-
-    @GetMapping("/get")
-    public String getCarsById(@PathVariable("id") int id, Model model) {
-        model.addAttribute("cars", carDAO.getCarsById(id));
-        return "cars/get";
+    public String carController(@RequestParam(value = "count", required = false) Integer count, Model model) {
+        if (count == null || count >= 5) {
+            model.addAttribute("cars", carDAO.getAllCars());
+        } else {
+            model.addAttribute("cars", carDAO.getCountCars(count));
+        }
+        return "cars";
     }
 
 }

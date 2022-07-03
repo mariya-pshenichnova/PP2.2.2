@@ -9,11 +9,9 @@ import java.util.stream.Collectors;
 
 @Component
 public class CarDAO {
-    private List<Car> cars;
+    private List<Car> cars = new ArrayList<>();;
 
     {
-     cars = new ArrayList<>();
-
      cars.add(new Car(1, "Ford Mustang", 4_000_000.0));
      cars.add(new Car(2, "Ford Expedition", 2_550_000.0));
      cars.add(new Car(3, "Ford Mondeo", 599_000.0));
@@ -21,12 +19,11 @@ public class CarDAO {
      cars.add(new Car(5, "Ford Galaxy", 900_000.0));
     }
 
-    public List<Car> printCars() {
+    public List<Car> getAllCars() {
         return cars;
     }
 
-    public List<Car> getCarsById(int count) {
+    public List<Car> getCountCars(int count) {
         return cars.stream().limit(count).collect(Collectors.toList());
     }
-
 }
